@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Speed Wi-Finder | Forestry</title>
+ 
+    <script src="http://speedof.me/api/api.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  	<h1>Forest Science Centre</h1>
+ 
+<ul id = "headerMenu">
+	<li><a id = "menu" href="index.html">Home</a></li>
+        <li><a id = "menu" href="macleod.html">Building</a></li>
+	<li><a id = "menu" href="rankings.html">Rankings</a></li>
+	<li><a id = "menu" href="contactus.html">Contact Us</a></li>
+	<li><a id = "menu" href="about.html">About</a></li>
+</ul>
+ 
+<img id = "mainMap" src="img/mapCampus3.gif" usemap="#linkmap" alt="map" border="0">
+<map name="linkmap">
+<area shape="rect" coords="65, 78, 83, 95" href="asian.html" alt="asian">
+<area shape="rect" coords="223, 243, 249, 273" href="book.html" alt="book">
+<area shape="rect" coords="187, 46, 246, 93" href="buchan.html" alt="buchan">
+<area shape="rect" coords="199, 9, 237, 33" href="chan.html" alt="chan">
+<area shape="rect" coords="185, 192, 215, 227" href="chem.html" alt="chem">
+<area shape="rect" coords="145, 289, 171, 330" href="earth.html" alt="earth">
+<area shape="rect" coords="185, 440, 248, 467" href="forest.html" alt="forest">
+<area shape="rect" coords="110, 133, 131, 164" href="geo.html" alt="geo">
+<area shape="rect" coords="215, 193, 243, 211" href="hebb.html" alt="hebb">
+<area shape="rect" coords="206, 172, 243, 193" href="henn.html" alt="henn">
+<area shape="rect" coords="145, 193, 171, 229" href="henry.html" alt="henry">
+<area shape="rect" coords="214, 417, 223, 435" href="hugh.html" alt="hugh">
+<area shape="rect" coords="186, 404, 215, 431" href="icics.html" alt="icics">
+<area shape="rect" coords="220, 107, 243, 163" href="irving.html" alt="irving">
+<area shape="rect" coords="186, 343, 201, 376" href="kaiser.html" alt="kaiser">
+<area shape="rect" coords="151, 123, 173, 151" href="koerner.html" alt="koerner">
+<area shape="rect" coords="187, 375, 213, 403" href="macleod.html" alt="macleod">
+<area shape="rect" coords="137, 127, 149, 152" href="math.html" alt="math">
+<area shape="rect" coords="124, 78, 140, 97" href="music.html" alt="music">
+<area shape="rect" coords="275, 154, 313, 188" href="sub.html" alt="sub">
+<area shape="rect" coords="93, 275, 104, 300" href="swing.html" alt="swing">
+<area shape="rect" coords="286, 302, 309, 319" href="wood.html" alt="wood">
+</map>
+ 
+<form id = "reviewForm" action="saveSpeedTest.php" method="post">
+    <p>Name:</p>
+    <p><input type="text" name="username"/></p>
+ 
+    <p>Comments: </p>
+    <p><textarea name="usercomments" rows="5" cols="20"></textarea></p>
+ 
+    <p>Your current building:</p>
+	<select name="buildings" onChange="top.location.href=value">
+	<option value="asian.html">Asian Centre</option>
+	<option value="book.html">Bookstore</option>
+	<option value="buchan.html">Buchanan</option>
+	<option value="chan.html">Chan Centre</option>
+	<option value="chem.html">Chemistry</option>
+	<option value="earth.html">Earth Sciences</option>
+	<option value="forest.html" selected>Forestry</option>
+	<option value="geo.html">Geography</option>
+	<option value="hebb.html">Hebb Theatre</option>
+	<option value="henn.html">Hennings</option>
+	<option value="henry.html">Henry Angus</option>
+	<option value="hugh.html">Hugh Dumpster Pavilion</option>
+	<option value="icics.html">ICICS (Computer Science)</option>
+	<option value="irving.html">Irving K. Barber</option>
+	<option value="kaiser.html">Kaiser</option>
+	<option value="koerner.html">Koerner Library</option>
+	<option value="macleod.html">Macleod</option>
+	<option value="math.html">Mathematics</option>
+	<option value="music.html">Music</option>
+	<option value="sub.html">SUB</option>
+	<option value="swing.html">Swing Space</option>
+	<option value="wood.html">WoodWard Library</option>
+	</select>
+ 	<input type="hidden" id="myDownloadSpeed" name="downloadspeed" value=testResult.download />
+	<input type="hidden" id="myUploadSpeed" name="uploadspeed" value=testResult.upload />
+  	<p>.</p><p>Please check your speed before you submit, <br>or internet speeds will not be uploaded.</p><p><input type="submit" name="submitted"></p>
+ 
+</form>
+ 
+    <div id="prgs" style="float:left; margin-right:30px"></div>
+    <div id="msg" style="float:left;"></div>
+    <div style="clear:both;"><br /><button style="width:150px" id="btnStart" type="button" onclick="btnStartClick()">Check Speed</button><br /></div>
+ 
+<script type="text/javascript">
+	SomApi.account = "SOM533058fbbbf76";   //your API Key here
+	SomApi.domainName = "wifinder.net84.net";      //your domain or sub-domain here
+        SomApi.onTestCompleted = onTestCompleted;
+        SomApi.onError = onError;
+        SomApi.onProgress = onProgress;
+ 
+        var msgDiv = document.getElementById("msg");
+        var prgsDiv = document.getElementById("prgs");
+ 
+        <!-- Check dialog box -->
+	function btnDialog(){
+		if(window.confirm('Are you sure you are at the right place?')){
+			if(window.confirm('Can I really trust you?'))
+				window.alert('I\'ll trust you');
+			else
+				window.alert('Find your right place');
+		}
+		else
+			window.alert('Find your right place');
+	}
+ 
+        <!-- End -->
+ 
+        function btnStartClick() {
+            //set config values
+	    SomApi.config.sustainTime = 3;
+            SomApi.config.testServerEnabled = true;
+            SomApi.config.userInfoEnabled = false;
+            SomApi.config.latencyTestEnabled = true;
+            SomApi.config.uploadTestEnabled = true;
+            SomApi.config.progress.enabled = false;
+            SomApi.config.progress.verbose = false;
+ 
+            msgDiv.innerHTML = "<h3>--------------- Test Results ---------------</h3><h4>" +
+                "Speed test in progress. Please wait...</h4>";
+            SomApi.startTest();
+        }
+ 
+        function onTestCompleted(testResult) {
+            msgDiv.innerHTML = "<h3>--------------- Test Results ---------------</h3><h4>" +
+                "Download: " + testResult.download + " Mbps <br/>" +
+                "Upload: " + testResult.upload + " Mbps <br/>" +
+                "Latency: " + testResult.latency + " ms <br/>" +
+                "Test Server: " + testResult.testServer + "<br/>" +
+                "</h4>";
+ 
+document.getElementById('myDownloadSpeed').value = testResult.download;
+document.getElementById('myUploadSpeed').value = testResult.upload;
+ 
+}        
+ 
+        function onError(error) {
+            msgDiv.innerHTML = "Error " + error.code + ": " + error.message;
+        }
+ 
+        function onProgress(progress) {
+            prgsDiv.innerHTML =
+            "<h3>--------------- Progress ---------------</h3><h4>" +
+                "Progress Type: " + progress.type + "<br/>" +
+                "Pass: " + progress.pass + "<br/>" +
+                "Percent Done: " + progress.percentDone + "% <br/>" +
+                "Current Speed: " + progress.currentSpeed + " Mbps <br/>" +
+            "</h4>";
+        }
+</script>
+ 
+ 
+ <h3> Average Download Speed</h3>
+	<?php
+// Connect to MySQL server
+mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
+// Select database
+mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
+$query = "SELECT AVG(download) FROM data WHERE location='forest.html' AND download > 0"; 
+$result = mysql_query($query);
+echo "<h4>";
+while($row = mysql_fetch_array($result)){
+	echo $row['AVG(download)'] . " Mbps";
+}
+echo "</h4>";
+?>
+ <h3> Average Upload Speed</h3>
+	<?php
+// Connect to MySQL server
+mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
+// Select database
+mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
+$query = "SELECT AVG(upload) FROM data WHERE location='forest.html' AND upload > 0"; 
+$result = mysql_query($query);
+echo "<h4>";
+while($row = mysql_fetch_array($result)){
+	echo $row['AVG(upload)'] . " Mbps";
+}
+echo "</h4>";
+?>
+ <h3> User Feedback</h3>
+	<?php
+// Connect to MySQL server
+mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
+// Select database
+mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
+$query = "SELECT user, comment, download, upload FROM data WHERE location='forest.html'"; 
+$result = mysql_query($query);
+echo "<table>"; // start a table tag in the HTML
+echo "<tr><th>User</th><th>Comment</th><th>Download</th><th>Upload</th></tr>";
+ 
+while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
+if ($row['upload'] == 0)
+{
+echo "<tr><td>" . $row['user'] . "</td><td>" . $row['comment'] . "</td><td>" .  "N/A" . "</td><td>" . "N/A" . "</td></tr>";  //$row['index'] the index here is a field name
+}
+else
+{
+echo "<tr><td>" . $row['user'] . "</td><td>" . $row['comment'] . "</td><td>" . $row['download'] .  " Mbps" . "</td><td>" . $row['upload'] .  " Mbps" . "</td></tr>";  //$row['index'] the index here is a field name
+}
+}
+ 
+echo "</table>";
+?>
+ 
+  </body>
+</html>
+ 

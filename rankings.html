@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Speed Wi-Finder</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  		<h1>Speed Wi-Finder</h1>
+
+
+<ul id = "headerMenu">
+	<li><a id = "menu" href="index.html">Home</a></li>
+        <li><a id = "menu" href="macleod.html">Building</a></li>
+	<li><a id = "menu" href="rankings.html">Rankings</a></li>
+	<li><a id = "menu" href="contactus.html">Contact Us</a></li>
+	<li><a id = "menu" href="about.html">About</a></li>
+</ul>
+	<h2>Top Ranked Locations</h2>
+<h3>By Download Speed:</h3>	
+<?php
+// Connect to MySQL server
+mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
+// Select database
+mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
+
+$query = "SELECT location, AVG(download) as avg_speed FROM data WHERE download > 0 GROUP BY location ORDER BY avg_speed DESC"; 
+$result = mysql_query($query);
+echo "<table class=\"ranks\">"; // start a table tag in the HTML
+echo "<tr><th>Building</th><th>Download Speed</th></tr>";
+while($row = mysql_fetch_array($result)){
+	$location = $row['location'];
+	$query2 = "SELECT name FROM names WHERE location = '$location'"; 
+	$result2 = mysql_query($query2);
+	while($row2 = mysql_fetch_array($result2)){
+		$name = $row2['name'];
+	}
+echo "<tr><td>" . $name . "</td><td>" . $row['avg_speed'] .  " Mbps" . "</td></tr>";  //$row['index'] the index here is a field name
+}
+echo "</table>";
+?>
+<h3>By Upload Speed:</h3>	
+<?php
+// Connect to MySQL server
+mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
+// Select database
+mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
+
+$query = "SELECT location, AVG(upload) as avg_speed FROM data WHERE download > 0 GROUP BY location ORDER BY avg_speed DESC"; 
+$result = mysql_query($query);
+echo "<table class=\"ranks\">"; // start a table tag in the HTML
+echo "<tr><th>Building</th><th>Upload Speed</th></tr>";
+while($row = mysql_fetch_array($result)){
+	$location = $row['location'];
+	$query2 = "SELECT name FROM names WHERE location = '$location'"; 
+	$result2 = mysql_query($query2);
+	while($row2 = mysql_fetch_array($result2)){
+		$name = $row2['name'];
+	}
+echo "<tr><td>" . $name . "</td><td>" . $row['avg_speed'] .  " Mbps" . "</td></tr>";  //$row['index'] the index here is a field name
+}
+echo "</table>";
+?>
+
+
+	
+  </body>
+</html>
