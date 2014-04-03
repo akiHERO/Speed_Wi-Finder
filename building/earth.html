@@ -2,23 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Speed Wi-Finder | Geography</title>
+    <title>Speed Wi-Finder | ESB</title>
  
     <script src="http://speedof.me/api/api.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
   </head>
   <body>
-  	<h1>Geography Building</h1>
+  	<h1>Earth Sciences Building</h1>
+  	
  
 <ul id = "headerMenu">
-	<li><a id = "menu" href="index.html">Home</a></li>
-        <li><a id = "menu" href="macleod.html">Building</a></li>
-	<li><a id = "menu" href="rankings.html">Rankings</a></li>
-	<li><a id = "menu" href="contactus.html">Contact Us</a></li>
-	<li><a id = "menu" href="about.html">About</a></li>
+	<li><a id = "menu" href="../index.html">Home</a></li>
+    <li><a id = "menu" href="macleod.html">Building</a></li>
+	<li><a id = "menu" href="../rankings.html">Rankings</a></li>
+	<li><a id = "menu" href="../contactus.html">Contact Us</a></li>
+	<li><a id = "menu" href="../about.html">About</a></li>
 </ul>
  
-<img id = "mainMap" src="img/mapCampus3.gif" usemap="#linkmap" alt="map" border="0">
+<img id = "mainMap" src="../img/mapCampus3.gif" usemap="#linkmap" alt="map" border="0">
 <map name="linkmap">
 <area shape="rect" coords="65, 78, 83, 95" href="asian.html" alt="asian">
 <area shape="rect" coords="223, 243, 249, 273" href="book.html" alt="book">
@@ -58,9 +59,9 @@
 	<option value="buchan.html">Buchanan</option>
 	<option value="chan.html">Chan Centre</option>
 	<option value="chem.html">Chemistry</option>
-	<option value="earth.html">Earth Sciences</option>
+	<option value="earth.html" selected>Earth Sciences</option>
 	<option value="forest.html">Forestry</option>
-	<option value="geo.html" selected>Geography</option>
+	<option value="geo.html">Geography</option>
 	<option value="hebb.html">Hebb Theatre</option>
 	<option value="henn.html">Hennings</option>
 	<option value="henry.html">Henry Angus</option>
@@ -95,20 +96,6 @@
  
         var msgDiv = document.getElementById("msg");
         var prgsDiv = document.getElementById("prgs");
- 
-        <!-- Check dialog box -->
-	function btnDialog(){
-		if(window.confirm('Are you sure you are at the right place?')){
-			if(window.confirm('Can I really trust you?'))
-				window.alert('I\'ll trust you');
-			else
-				window.alert('Find your right place');
-		}
-		else
-			window.alert('Find your right place');
-	}
- 
-        <!-- End -->
  
         function btnStartClick() {
             //set config values
@@ -160,7 +147,7 @@ document.getElementById('myUploadSpeed').value = testResult.upload;
 mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
 // Select database
 mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
-$query = "SELECT AVG(download) FROM data WHERE location='geo.html' AND download > 0"; 
+$query = "SELECT AVG(download) FROM data WHERE location='earth.html' AND download > 0"; 
 $result = mysql_query($query);
 echo "<h4>";
 while($row = mysql_fetch_array($result)){
@@ -174,7 +161,7 @@ echo "</h4>";
 mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
 // Select database
 mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
-$query = "SELECT AVG(upload) FROM data WHERE location='geo.html' AND upload > 0"; 
+$query = "SELECT AVG(upload) FROM data WHERE location='earth.html' AND upload > 0"; 
 $result = mysql_query($query);
 echo "<h4>";
 while($row = mysql_fetch_array($result)){
@@ -188,7 +175,7 @@ echo "</h4>";
 mysql_connect("mysql3.000webhost.com", "a8003312_team5", "eece310") or die('Error connecting to MySQL server: ' . mysql_error());
 // Select database
 mysql_select_db("a8003312_data") or die('Error selecting MySQL database: ' . mysql_error());
-$query = "SELECT user, comment, download, upload FROM data WHERE location='geo.html'"; 
+$query = "SELECT user, comment, download, upload FROM data WHERE location='earth.html'"; 
 $result = mysql_query($query);
 echo "<table>"; // start a table tag in the HTML
 echo "<tr><th>User</th><th>Comment</th><th>Download</th><th>Upload</th></tr>";
